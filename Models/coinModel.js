@@ -19,7 +19,7 @@ const coinSchema = new mongoose.Schema(
       required: true,
       enum: {
         values: ["dynamic", "non-dynamic"],
-        message: "Enter valid type ",
+        message: "Enter valid type (eg; dynamic or non-dynamic) ",
       },
     },
     rank: {
@@ -34,6 +34,9 @@ const coinSchema = new mongoose.Schema(
     startingPrice: {
       type: Number,
     },
+    priceCurrency: {
+      type: String,
+    },
     category: {
       type: String,
       required: true,
@@ -41,6 +44,14 @@ const coinSchema = new mongoose.Schema(
         values: ["coin", "token", "VIP"],
         message: "Enter valid category ( eg; token, coin, VIP) ",
       },
+    },
+    allowedToBuy: {
+      type: Boolean,
+      default: true,
+    },
+    allowedToSwap: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
