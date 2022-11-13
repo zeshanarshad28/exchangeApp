@@ -40,5 +40,28 @@ router.patch(
   authController.restrictTo("admin"),
   coinsController.allowCoinToSwap
 );
-
+router.post(
+  "/createStage",
+  authController.protect,
+  authController.restrictTo("admin"),
+  coinsController.createStage
+);
+router.patch(
+  "/updateStage/:stageId",
+  authController.protect,
+  authController.restrictTo("admin"),
+  coinsController.updateStage
+);
+router.patch(
+  "/activateStage/:stageId",
+  authController.protect,
+  authController.restrictTo("admin"),
+  coinsController.activateStage
+);
+router.patch(
+  "/deActivateStage/:stageId",
+  authController.protect,
+  authController.restrictTo("admin"),
+  coinsController.deActivateStage
+);
 module.exports = router;

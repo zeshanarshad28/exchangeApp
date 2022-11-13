@@ -25,7 +25,7 @@ exports.viewWallet = catchAsync(async (req, res, next) => {
   console.log(walletDetails);
   if (!walletDetails) {
     // console.log("wallet not found");
-    next(new AppError("Invalid wallet id ", 401));
+    return next(new AppError("Invalid wallet id ", 401));
   }
   //   console.log("requested user:" + req.user);
   if (walletDetails.userId.equals(req.user._id)) {
@@ -34,5 +34,5 @@ exports.viewWallet = catchAsync(async (req, res, next) => {
       walletDetails,
     });
   }
-  next(new AppError("You're not authorized to view this wallet"));
+  return next(new AppError("You're not authorized to view this wallet"));
 });

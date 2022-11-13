@@ -11,6 +11,7 @@ const stageSchema = new mongoose.Schema(
 
     stageNumber: {
       type: Number,
+      required: [true, "please add stage number"],
     },
     coinId: {
       type: mongoose.Schema.ObjectId,
@@ -28,6 +29,11 @@ const stageSchema = new mongoose.Schema(
     remainingSupply: {
       type: Number,
     },
+    rate: {
+      type: Number,
+      default: null,
+    },
+
     startDate: {
       type: Date,
       required: [true, "please add start date to this stage"],
@@ -38,6 +44,7 @@ const stageSchema = new mongoose.Schema(
     },
     bonusPercentage: {
       type: Number,
+      default: 0,
     },
     minPurchase: {
       type: Number,

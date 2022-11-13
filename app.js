@@ -8,7 +8,7 @@ const xssClean = require("xss-clean");
 const userRoutes = require("./routes/userRoutes");
 const coinRoutes = require("./routes/coinsRoutes");
 const walletRoutes = require("./routes/walletRoutes");
-
+const coinCirculation = require("./controllers/coinCirculation");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorControllers");
 
@@ -29,6 +29,7 @@ app.use(express.json());
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/coin", coinRoutes);
 app.use("/api/v1/wallet", walletRoutes);
+app.use("/api/v1/coinCirculation", coinCirculation);
 
 // // Handling unhandled routes:
 app.all("*", (req, res, next) => {
