@@ -31,6 +31,13 @@ const coinSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    remainingSupply: {
+      type: Number,
+    },
+    minPurchase: {
+      type: Number,
+      default: 0,
+    },
     startingPrice: {
       type: Number,
     },

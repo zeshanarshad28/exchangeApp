@@ -18,6 +18,11 @@ const stageSchema = new mongoose.Schema(
       ref: "coins",
       required: [true, "please give coin Id "],
     },
+    userId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "users",
+      required: [true, "please give user Id "],
+    },
     type: {
       type: String,
       required: [true, "Please enter type of stage (eg; public , private"],

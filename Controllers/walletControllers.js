@@ -10,7 +10,6 @@ exports.createWallet = catchAsync(async (req, res, next) => {
     name: req.body.name,
     userId: req.user._id,
     coinId: null,
-    balance: null,
   });
   res.status(200).json({
     status: "success",

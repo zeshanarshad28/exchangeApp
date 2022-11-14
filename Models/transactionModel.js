@@ -19,6 +19,7 @@ const transactionSchema = new mongoose.Schema(
     },
     currency: {
       type: String,
+      default: "usd",
     },
     walletId: {
       type: mongoose.Schema.ObjectId,
@@ -40,13 +41,12 @@ const transactionSchema = new mongoose.Schema(
     price: {
       type: Number,
     },
-    amount: {
+    totalCoins: {
       type: Number,
     },
     buySaleWalletId: {
       type: mongoose.Schema.ObjectId,
       ref: "wallets",
-      required: [true, "please give wallet Id "],
     },
     status: {
       type: String,

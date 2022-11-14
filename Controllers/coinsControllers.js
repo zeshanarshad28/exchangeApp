@@ -11,14 +11,27 @@ const axios = require("axios");
 // Add supported coin
 exports.addSupportedCoin = catchAsync(async (req, res, next) => {
   if (req.body.type == "dynamic") {
-    var newCoin = await Coin.create(req.body);
+    var newCoin = await Coin.create({
+      name: req.body.name,
+      type: req.body.type,
+      symbol: req.body.symbol,
+      rank: req.body.rank,
+      remainingSupply: req.body.totalSupply,
+      totalSupply: req.body.totalSupply,
+      minPurchase: req.body.minPurchase,
+      startingPrice: req.body.startingPrice,
+      priceCurrency: req.body.priceCurrency,
+      category: req.body.category,
+    });
   } else {
     var newCoin = await Coin.create({
       name: req.body.name,
       type: req.body.type,
       symbol: req.body.symbol,
       rank: req.body.rank,
+      remainingSupply: req.body.totalSupply,
       totalSupply: req.body.totalSupply,
+      minPurchase: req.body.minPurchase,
       startingPrice: null,
       priceCurrency: null,
       category: req.body.category,
@@ -35,7 +48,18 @@ exports.addDynamicCoin = catchAsync(async (req, res, next) => {
   if (req.body.type !== "dynamic") {
     return next(new AppError(`please add correct "type"(dynamic)`));
   }
-  var newCoin = await Coin.create(req.body);
+  var newCoin = await Coin.create({
+    name: req.body.name,
+    type: req.body.type,
+    symbol: req.body.symbol,
+    rank: req.body.rank,
+    remainingSupply: req.body.totalSupply,
+    totalSupply: req.body.totalSupply,
+    minPurchase: req.body.minPurchase,
+    startingPrice: req.body.startingPrice,
+    priceCurrency: req.body.priceCurrency,
+    category: req.body.category,
+  });
 
   res.status(201).json({
     status: "success",
@@ -138,6 +162,7 @@ exports.createStage = catchAsync(async (req, res, next) => {
     stageName: req.body.stageName,
     stageNumber: req.body.stageNumber,
     coinId: req.body.coinId,
+    userId: req.user._id,
     type: req.body.type,
     supply: req.body.supply,
     remainingSupply: req.body.supply,
@@ -222,7 +247,7 @@ exports.activateStage = catchAsync(async (req, res, next) => {
   });
 });
 
-// activate stage
+// De-activate stage
 exports.deActivateStage = catchAsync(async (req, res, next) => {
   const coinStage = await Stage.findById(req.params.stageId);
   if (!coinStage) {
@@ -237,9 +262,3 @@ exports.deActivateStage = catchAsync(async (req, res, next) => {
     updatedStage,
   });
 });
-// const url =
-// "  https://crypto.price.libonomy.ai/v1/cryptocurrency/quotes/latest?symbol=PSIX";
-// const resp = await axios.get(url, {
-// params: {},
-// });
-// console.log(resp.data.data.data.PSIX.quote.USD.price);

@@ -54,7 +54,6 @@ const userSchema = new mongoose.Schema(
     blocked: {
       type: Boolean,
       default: false,
-      select: false,
     },
     role: {
       type: String,
