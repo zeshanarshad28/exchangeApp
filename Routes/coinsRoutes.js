@@ -64,4 +64,35 @@ router.patch(
   authController.restrictTo("admin"),
   coinsController.deActivateStage
 );
+router.get(
+  "/viewAllRequests",
+  authController.protect,
+  authController.restrictTo("admin"),
+  coinsController.viewAllRequests
+);
+router.patch(
+  "/approveRequest/:reqId",
+  authController.protect,
+  authController.restrictTo("admin"),
+  coinsController.approveRequest
+);
+router.patch(
+  "/rejectRequest/:reqId",
+  authController.protect,
+  authController.restrictTo("admin"),
+  coinsController.rejectRequest
+);
+router.get(
+  "/viewTransactionHistory",
+  authController.protect,
+
+  coinsController.viewTransactionHistory
+);
+router.get(
+  "/viewAllTransactionsHistory",
+  authController.protect,
+  authController.restrictTo("admin"),
+
+  coinsController.viewAllTransactionsHistory
+);
 module.exports = router;
