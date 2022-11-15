@@ -75,7 +75,7 @@ router.post(
   "/create-payment-intent/:id",
   authControllers.protect,
   async (req, res, next) => {
-    console.log("1)user id" + req.user);
+    // console.log("1)user id" + req.user);
     if (req.user.allowedToBuy == false) {
       return next(new AppError("You're not allowed to buy coin", 401));
     }
@@ -91,15 +91,18 @@ router.post(
         new AppError(`coin of this ${req.body.coinId} id not exist`, 401)
       );
     }
-    console.log("2) coins" + coin);
+    // console.log("2) coins" + coin);
 
     if (coin.allowedToBuy == false) {
       return next(new AppError("Coin is restrited to purchase", 401));
     }
-    const wallet = await Wallet.findById(req.body.walletId);
+    const wallet = await Wallet.findOne({
+      userId: req.user._id,
+      coinId: coin.id,
+    });
     var myWalletId;
     if (wallet) {
-      myWalletId = req.body.walletId;
+      myWalletId = wallet.id;
       console.log("3)Wallet is:" + wallet);
       if (req.user._id.equals(wallet.userId)) {
         console.log("wallet belongs to loged-in user");
@@ -205,7 +208,7 @@ router.post(
         metadata: {
           totalCoinsToBuy,
           userId: req.user.id,
-          walletId: req.body.walletId,
+          walletId: myWalletId,
           coinId: req.body.coinId,
           coinType: coin.type,
           amount: priceOfCoin,
@@ -220,7 +223,7 @@ router.post(
         metadata: {
           totalCoinsToBuy,
           userId: req.user.id,
-          walletId: req.body.walletId,
+          walletId: myWalletId,
           coinId: req.body.coinId,
           coinType: coin.type,
           stageId: coinStage.id,

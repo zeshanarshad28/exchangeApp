@@ -6,10 +6,29 @@ const { findById } = require("../models/userModel");
 
 // create wallet
 exports.createWallet = catchAsync(async (req, res, next) => {
+  const wallet = await Wallet.findOne({
+    coinId: req.body.coinId,
+    userId: req.user._id,
+  });
+  if (wallet) {
+    return next(new AppError("wallet already exist for this coin", 401));
+  }
+  const walletByName = await Wallet.findOne({
+    name: req.body.name,
+    userId: req.user._id,
+  });
+  if (walletByName) {
+    return next(
+      new AppError(
+        "wallet already exist with this name , Please try another name ",
+        401
+      )
+    );
+  }
   const newWallet = await Wallet.create({
     name: req.body.name,
     userId: req.user._id,
-    coinId: null,
+    coinId: req.body.coinId,
   });
   res.status(200).json({
     status: "success",

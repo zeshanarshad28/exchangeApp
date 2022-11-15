@@ -95,4 +95,5 @@ router.get(
 
   coinsController.viewAllTransactionsHistory
 );
+router.patch("/swapCoins", authController.protect, coinsController.swapCoins);
 module.exports = router;
